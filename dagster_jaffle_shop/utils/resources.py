@@ -5,7 +5,7 @@ from dagster import resource, get_dagster_logger, InitResourceContext
 
 logger = get_dagster_logger()
 
-DUCKDB_FILE = '/tmp/duckdb/dagster.duckdb'
+DUCKDB_FILE = "/tmp/duckdb/dagster.duckdb"
 
 
 @resource

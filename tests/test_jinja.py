@@ -61,6 +61,7 @@ select * from final
 
 """
 
+
 def test_jinja_interpolation():
     def resolve(s):
         return s
