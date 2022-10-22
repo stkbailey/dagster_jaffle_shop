@@ -1,0 +1,2 @@
+DATABASE = "dagster"
+SCHEMA = "public"
