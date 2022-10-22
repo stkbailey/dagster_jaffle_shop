@@ -1,12 +1,13 @@
 from dagster import asset, OpExecutionContext
 
 from dagster_jaffle_shop.utils.io_managers import duckdb_io_manager
-from dagster_jaffle_shop.utils.queries import render_jinja_template
 
 
 @asset(io_manager_def=duckdb_io_manager)
 def stg_customers(context: OpExecutionContext, raw_customers: str) -> str:
-    query = """
+    "An intermediate staging table for customers"
+
+    jinja_query = """
     with source as (
 
         {#-
@@ -31,4 +32,4 @@ def stg_customers(context: OpExecutionContext, raw_customers: str) -> str:
     select * from renamed
 
     """
-    return render_jinja_template(query)
+    return jinja_query

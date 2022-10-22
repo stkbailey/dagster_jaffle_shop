@@ -7,7 +7,7 @@ def test_duckdb_create():
     p = (
         pathlib.Path().cwd()
         / "dagster_jaffle_shop"
-        / "definitions"
+        / "include"
         / "seeds"
         / "raw_customers.csv"
     )

@@ -1,12 +1,13 @@
 from dagster import asset
 
 from dagster_jaffle_shop.utils.io_managers import duckdb_io_manager
-from dagster_jaffle_shop.utils.queries import render_jinja_template
 
 
 @asset(io_manager_def=duckdb_io_manager)
 def customers(stg_customers: str, stg_orders: str, stg_payments: str) -> str:
-    query = """
+    "This table has basic information about a customer, as well as some derived facts based on a customer's orders"
+
+    jinja_query = """
 with customers as (
 
     select * from {{ ref('stg_customers') }}
@@ -77,4 +78,5 @@ final as (
 
 select * from final
     """
-    return render_jinja_template(query)
+
+    return jinja_query

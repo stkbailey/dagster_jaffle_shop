@@ -1,12 +1,13 @@
 from dagster import asset
 
 from dagster_jaffle_shop.utils.io_managers import duckdb_io_manager
-from dagster_jaffle_shop.utils.queries import render_jinja_template
 
 
 @asset(io_manager_def=duckdb_io_manager)
 def orders(stg_orders: str, stg_payments: str) -> str:
-    query = """
+    "This table has basic information about orders, as well as some derived facts based on payments"
+
+    jinja_query = """
 {% set payment_methods = ['credit_card', 'coupon', 'bank_transfer', 'gift_card'] %}
 
 with orders as (
@@ -64,4 +65,5 @@ final as (
 
 select * from final
     """
-    return render_jinja_template(query)
+
+    return jinja_query

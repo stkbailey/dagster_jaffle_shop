@@ -1,9 +1,9 @@
 import duckdb
-import pandas
 
 from dagster import IOManager, io_manager
 
 from .resources import DUCKDB_FILE
+from .queries import render_jinja_template
 
 
 class DuckdbIOManager(IOManager):
@@ -13,8 +13,9 @@ class DuckdbIOManager(IOManager):
     def handle_output(self, context, obj: str):
         # name is the name given to the Out that we're storing for
         table_name = context.name
+        rendered_query = render_jinja_template(obj)
         with duckdb.connect(self.db_file, read_only=False) as conn:
-            query = f"CREATE OR REPLACE TABLE {table_name} AS {obj}"
+            query = f"CREATE OR REPLACE TABLE {table_name} AS {rendered_query}"
             conn.execute(query)
 
     def load_input(self, context) -> str:

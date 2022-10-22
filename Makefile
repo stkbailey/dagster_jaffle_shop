@@ -12,3 +12,6 @@ format:
 
 setup:
 	touch /tmp/dagster.yaml
+
+test:
+	pytest tests
